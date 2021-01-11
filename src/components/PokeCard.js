@@ -18,18 +18,12 @@ const PokeCard = (props) => {
 	}, [setFetchedData]);
 
 	const { id, name, sprites, types } = fetchData;
-	// const imgUrl = sprites.front_default;
 
-	return (
-		// <Button
-		// 	className="pokecard"
-		// 	// key={name}
-		// >
-		// 	{pokemon.name}
-		// </Button>
-
-		<Tab className="pokecard" icon={<img src={sprites.front_default}></img>} label={name} />
-	);
+	if (!sprites) {
+		return <Tab className="pokecard" label="...Loading Pkmn" />;
+	} else {
+		return <Tab className="pokecard" icon={<img src={sprites.front_default}></img>} label={name} />;
+	}
 };
 
 export default PokeCard;

@@ -21,7 +21,6 @@ const PokeList = () => {
 	return (
 		<Grid className="pokelist" container>
 			{fetchedPokedex.map((pokemon, i) => {
-				// console.log(pokemon, i);
 				return <PokeCard key={i} id={i} pokemon={pokemon} />;
 			})}
 		</Grid>
