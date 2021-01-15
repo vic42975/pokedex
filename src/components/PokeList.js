@@ -1,28 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Grid } from '@material-ui/core';
-import '../styles/pokelist.css';
 import PokeCard from './PokeCard';
-import { fetchPokedex } from '../api';
 
-const PokeList = () => {
-	const [fetchedPokedex, setFetchedPokedex] = useState([]);
+import '../styles/pokelist.css';
 
-	useEffect(() => {
-		const fetchAPI = async () => {
-			const PokemonList = await fetchPokedex();
-			setFetchedPokedex(PokemonList);
-		};
+const PokeList = (props) => {
+	const fetchedPokedex = props.pokedex;
 
-		fetchAPI();
-	}, [setFetchedPokedex]);
+	let displayList = '';
+
+	if (!fetchedPokedex) {
+		displayList = <p>...Loading</p>;
+	} else {
+		displayList = fetchedPokedex.map((pokemon, i) => {
+			return <PokeCard key={i} id={i} pokemon={pokemon} onClick={props.onClick} />;
+		});
+	}
 
 	// take the list
 	// for every pokemon, display pokemon name
+
+	// if fetchedPokedex API request not fullfilled -> show loading
+	// if data has been fetched, then map thru array
 	return (
-		<Grid className="pokelist" container>
-			{fetchedPokedex.map((pokemon, i) => {
-				return <PokeCard key={i} id={i} pokemon={pokemon} />;
-			})}
+		<Grid item className="pokelist">
+			{displayList}
 		</Grid>
 	);
 };

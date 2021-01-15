@@ -25,8 +25,9 @@ export const fetchPokemon = async (pokemon) => {
 	}
 };
 
+// change to 151 during real deployment
 export const fetchPokedex = async () => {
-	console.log('Fetching All 151 Pokemon');
+	console.log('Fetching Kanto Pokemon');
 	try {
 		const {
 			data: { results },

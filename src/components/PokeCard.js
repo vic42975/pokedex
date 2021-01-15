@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Tab } from '@material-ui/core';
+import React from 'react';
+import { Tab } from '@material-ui/core';
 import '../styles/pokecard.css';
-import { fetchPokemon } from '../api';
 
 const PokeCard = (props) => {
-	const { pokemon } = props;
+	const { pokemon, onClick } = props;
 
-	const [fetchData, setFetchedData] = useState({});
-
-	useEffect(() => {
-		const fetchAPI = async () => {
-			const pokemonData = await fetchPokemon(pokemon.name);
-			setFetchedData(pokemonData);
-		};
-
-		fetchAPI();
-	}, [setFetchedData]);
-
-	const { id, name, sprites, types } = fetchData;
+	const { name, sprites } = pokemon;
 
 	if (!sprites) {
 		return <Tab className="pokecard" label="...Loading Pkmn" />;
 	} else {
-		return <Tab className="pokecard" icon={<img src={sprites.front_default}></img>} label={name} />;
+		return (
+			<Tab
+				className="pokecard"
+				icon={<img src={sprites.front_default} alt="sprite"></img>}
+				label={name}
+				onClick={() => onClick(pokemon)}
+			/>
+		);
 	}
 };
 
